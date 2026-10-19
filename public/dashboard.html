@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Exam Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        .feature-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-top: 4px solid; max-width: 600px; margin-top: 20px; }
+        .form-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .admin-menu-item { display: none; } /* Only Admin will see this */
+        .result-box { background: #f8f9fa; padding: 15px; border: 1px solid #ddd; margin-top: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body class="dashboard-body">
+    
+    <div class="sidebar">
+        <h2>Exam Portal</h2>
+        <a href="#" class="nav-link active" data-target="dashboardSection">Notice Board</a>
+        
+        <!-- Student & Admin Both Can View -->
+        <a href="#" class="nav-link" data-target="viewTimetableSection">View Time Table</a>
+        <a href="#" class="nav-link" data-target="viewAdmitCardSection">Download Admit Card</a>
+        <a href="#" class="nav-link" data-target="viewResultSection">Check Result</a>
+        
+        <!-- Admin Only Forms -->
+        <div class="admin-menu-item">
+            <hr style="border-color: #555; margin: 20px 0;">
+            <p style="color: #aaa; font-size: 12px; margin-left: 15px;">ADMIN CONTROLS</p>
+            <a href="#" class="nav-link" data-target="addStudentSection" style="color: #ffcccc;">+ Add Student</a>
+            <a href="#" class="nav-link" data-target="timeTableSection" style="color: #ffcccc;">+ Exam Time Table</a>
+            <a href="#" class="nav-link" data-target="admitCardSection" style="color: #ffcccc;">+ Issue Admit Card</a>
+            <a href="#" class="nav-link" data-target="resultSection" style="color: #ffcccc;">+ Upload Result</a>
+        </div>
+        
+        <a href="#" id="logoutBtn" class="logout" style="margin-top: 30px;">Logout</a>
+    </div>
+    
+    <div class="main-content">
+        <header>
+            <h1 id="welcomeMessage">Welcome to Dashboard</h1>
+            <p style="color: #666; margin-top: 5px;" id="roleSubtitle">Student Portal</p>
+        </header>
+
+        <!-- 1. DASHBOARD / NOTICES -->
+        <div id="dashboardSection" class="content-section active">
+            <div id="adminPanel" style="display: none; margin-top: 30px;">
+                <h2 style="margin-bottom: 15px; color: #0a2240;">Notice & Updates</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="feature-card" style="border-top-color: #8b0000; margin-top: 0;">
+                        <h3 style="color: #8b0000; margin-bottom: 10px;">AI Notice Generator</h3>
+                        <input type="text" id="aiPrompt" class="form-input" placeholder="Type topic...">
+                        <button class="btn-small" id="askAiBtn" style="background: #8b0000; width: 100%;">Generate</button>
+                    </div>
+                    <div class="feature-card" style="border-top-color: #0a2240; margin-top: 0;">
+                        <h3 style="margin-bottom: 10px;">Publish Notice</h3>
+                        <form id="publishForm">
+                            <input type="text" id="pubSubject" class="form-input" required placeholder="Subject">
+                            <input type="text" id="pubDept" class="form-input" required placeholder="Category">
+                            <textarea id="pubDesc" class="form-input" rows="3" required placeholder="Notice content..."></textarea>
+                            <button type="submit" class="btn-small" style="width: 100%;">Publish</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contentList" style="margin-top: 40px;">
+                <h2 style="margin-bottom: 15px; color: #0a2240;">Official Notice Board</h2>
+                <div id="recordsContainer" style="display: flex; flex-direction: column; gap: 15px;"></div>
+            </div>
+        </div>
+
+        <!-- === STUDENT READ-ONLY SECTIONS === -->
+        
+        <div id="viewTimetableSection" class="content-section">
+            <h2 style="color: #0a2240;">Exam Time Table</h2>
+            <div class="feature-card" style="border-top-color: #17a2b8; max-width: 100%;">
+                <button id="loadTimetableBtn" class="btn-small" style="background: #17a2b8; margin-bottom: 15px;">Load Time Table</button>
+                <div id="timetableDisplay"></div>
+            </div>
+        </div>
+
+        <div id="viewAdmitCardSection" class="content-section">
+            <h2 style="color: #0a2240;">Download Admit Card</h2>
+            <div class="feature-card" style="border-top-color: #fd7e14;">
+                <form id="fetchAdmitCardForm">
+                    <input type="text" id="fetchAcRoll" class="form-input" required placeholder="Enter Your Roll Number">
+                    <button type="submit" class="btn-small" style="background: #fd7e14; width: 100%;">Get Admit Card</button>
+                </form>
+                <div id="admitCardDisplay" class="result-box" style="display:none;"></div>
+            </div>
+        </div>
+
+        <div id="viewResultSection" class="content-section">
+            <h2 style="color: #0a2240;">Check Exam Result</h2>
+            <div class="feature-card" style="border-top-color: #6f42c1;">
+                <form id="fetchResultForm">
+                    <input type="text" id="fetchResRoll" class="form-input" required placeholder="Enter Your Roll Number">
+                    <button type="submit" class="btn-small" style="background: #6f42c1; width: 100%;">Check Result</button>
+                </form>
+                <div id="resultDisplay" class="result-box" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- === ADMIN ADD/UPDATE FORMS (Hidden from Students) === -->
+        <div id="addStudentSection" class="content-section">
+            <h2 style="color: #0a2240;">Register New Student</h2>
+            <div class="feature-card" style="border-top-color: #28a745;">
+                <form id="addStudentForm">
+                    <input type="text" id="stuName" class="form-input" required placeholder="Student Full Name">
+                    <input type="text" id="stuRoll" class="form-input" required placeholder="Roll Number">
+                    <input type="text" id="stuCourse" class="form-input" required placeholder="Course">
+                    <button type="submit" class="btn-small" style="background: #28a745; width: 100%;">Register Student</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="timeTableSection" class="content-section">
+            <h2 style="color: #0a2240;">Schedule Exam Time Table</h2>
+            <div class="feature-card" style="border-top-color: #17a2b8;">
+                <form id="timeTableForm">
+                    <input type="text" id="ttCourse" class="form-input" required placeholder="Course">
+                    <input type="text" id="ttSubject" class="form-input" required placeholder="Subject Name">
+                    <input type="date" id="ttDate" class="form-input" required>
+                    <input type="time" id="ttTime" class="form-input" required>
+                    <button type="submit" class="btn-small" style="background: #17a2b8; width: 100%;">Add Schedule</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="admitCardSection" class="content-section">
+            <h2 style="color: #0a2240;">Generate Admit Card</h2>
+            <div class="feature-card" style="border-top-color: #fd7e14;">
+                <form id="admitCardForm">
+                    <input type="text" id="acRoll" class="form-input" required placeholder="Student Roll Number">
+                    <input type="text" id="acCenter" class="form-input" required placeholder="Exam Center Name">
+                    <button type="submit" class="btn-small" style="background: #fd7e14; width: 100%;">Issue Admit Card</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="resultSection" class="content-section">
+            <h2 style="color: #0a2240;">Upload Exam Result</h2>
+            <div class="feature-card" style="border-top-color: #6f42c1;">
+                <form id="resultForm">
+                    <input type="text" id="resRoll" class="form-input" required placeholder="Student Roll Number">
+                    <input type="text" id="resSubject" class="form-input" required placeholder="Subject Name">
+                    <input type="number" id="resMarks" class="form-input" required placeholder="Marks Obtained" min="0" max="100">
+                    <button type="submit" class="btn-small" style="background: #6f42c1; width: 100%;">Submit Result</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - Exam Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    
+    <div style="background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px;">
+        <h2 style="color: #0a2240; margin-bottom: 20px; text-align: center;">Faculty & Admin Portal</h2>
+        
+        <form id="adminLoginForm">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Admin Email</label>
+                <input type="email" id="adminEmail" class="form-input" required value="admin@university.edu" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">Password / Security Key</label>
+                <input type="password" id="adminPassword" class="form-input" required placeholder="Default: admin123" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <p style="margin: 0 0 16px; color: #666; font-size: 13px; text-align: center;">Default admin login: admin@university.edu / admin123</p>
+
+            <button type="submit" class="btn-small" style="width: 100%; background: #8b0000; color: white; padding: 12px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Authorize Access</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="login.html" style="color: #0a2240; font-size: 14px; text-decoration: none;">Return to Student Portal</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, requiredRole: 'admin' })
+                });
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('userData', JSON.stringify(data.user));
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert('Admin Login Failed: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Connection error with server!');
+            }
+        });
+    </script>
+</body>
+</html>

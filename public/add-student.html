@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student - Exam Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+    <div class="sidebar">
+        <h2>Exam Portal</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="notes.html">Study Notes</a>
+        <a href="results.html">Results</a>
+        <a href="add-student.html" class="active" style="background: #8b0000;">Add Student</a>
+        <a href="login.html" class="logout" onclick="localStorage.removeItem('userData')">Logout</a>
+    </div>
+    <div class="main-content">
+        <header><h1 style="color: #8b0000;">Register New Student</h1></header>
+        <div class="card" style="margin-top: 30px; max-width: 500px;">
+            <form id="registerForm">
+                <div class="input-group">
+                    <label>Student Full Name</label>
+                    <input type="text" id="regName" required placeholder="Enter full name">
+                </div>
+                <div class="input-group">
+                    <label>Student Email ID</label>
+                    <input type="email" id="regEmail" required placeholder="student@university.edu">
+                </div>
+                <div class="input-group">
+                    <label>Assign Password</label>
+                    <input type="password" id="regPassword" required placeholder="Create a default password">
+                </div>
+                <button type="submit" class="btn" style="background: #8b0000; color: white;">Add Student to Database</button>
+            </form>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

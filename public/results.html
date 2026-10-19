@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results - Exam Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+    <div class="sidebar">
+        <h2>Exam Portal</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="notes.html">Study Notes</a>
+        <a href="results.html" class="active">Results</a>
+        <a href="login.html" class="logout" onclick="localStorage.removeItem('userData')">Logout</a>
+    </div>
+    <div class="main-content">
+        <header><h1 style="color: #0a2240;">Examination Results</h1></header>
+        <div class="card" style="margin-top: 30px;">
+            <h3>Semester 5 - Mid Term Examination</h3>
+            <table style="width: 100%; text-align: left; border-collapse: collapse; margin-top: 15px;">
+                <tr style="background: #0a2240; color: white;">
+                    <th style="padding: 10px;">Subject Code</th>
+                    <th style="padding: 10px;">Subject Name</th>
+                    <th style="padding: 10px;">Marks Obtained</th>
+                    <th style="padding: 10px;">Grade</th>
+                </tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ccc;">CS301</td><td style="padding: 10px; border-bottom: 1px solid #ccc;">Algorithms</td><td style="padding: 10px; border-bottom: 1px solid #ccc;">88/100</td><td style="padding: 10px; border-bottom: 1px solid #ccc; color: green; font-weight: bold;">A</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ccc;">CS302</td><td style="padding: 10px; border-bottom: 1px solid #ccc;">Database Systems</td><td style="padding: 10px; border-bottom: 1px solid #ccc;">92/100</td><td style="padding: 10px; border-bottom: 1px solid #ccc; color: green; font-weight: bold;">A+</td></tr>
+            </table>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

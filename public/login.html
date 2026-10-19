@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Login - Exam Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Student Examination Portal</h2>
+        <form id="loginForm">
+            <input type="hidden" id="role" value="user">
+            <div class="input-group">
+                <label>Email ID</label>
+                <input type="email" id="email" required placeholder="student@university.edu">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" required placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn">Access Exam Dashboard</button>
+        </form>
+        <div class="link-group">
+            <a href="register.html" style="color: #d4af37;">New Student? Create an Account</a><br><br>
+            <a href="admin-login.html">Switch to Administrator Login</a>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

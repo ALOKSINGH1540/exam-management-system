@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance - Exam Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+    <div class="sidebar">
+        <h2>Exam Portal</h2>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="attendance.html" class="active">Attendance</a>
+        <a href="notes.html">Study Notes</a>
+        <a href="results.html">Results</a>
+        <a href="login.html" class="logout" onclick="localStorage.removeItem('userData')">Logout</a>
+    </div>
+    <div class="main-content">
+        <header><h1 style="color: #0a2240;">Attendance Record</h1></header>
+        <div class="card" style="margin-top: 30px;">
+            <h3>Overall Attendance: 85%</h3>
+            <p>You are eligible to sit in the upcoming examinations.</p>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+            <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                <tr style="background: #0a2240; color: white;">
+                    <th style="padding: 10px;">Date</th>
+                    <th style="padding: 10px;">Subject</th>
+                    <th style="padding: 10px;">Status</th>
+                </tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ccc;">14-Oct-2026</td><td style="padding: 10px; border-bottom: 1px solid #ccc;">Mathematics</td><td style="padding: 10px; border-bottom: 1px solid #ccc; color: green; font-weight: bold;">Present</td></tr>
+                <tr><td style="padding: 10px; border-bottom: 1px solid #ccc;">13-Oct-2026</td><td style="padding: 10px; border-bottom: 1px solid #ccc;">Physics</td><td style="padding: 10px; border-bottom: 1px solid #ccc; color: red; font-weight: bold;">Absent</td></tr>
+            </table>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
