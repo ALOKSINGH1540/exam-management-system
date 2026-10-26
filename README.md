@@ -17,7 +17,7 @@ A comprehensive, web-based Examination Management System designed to streamline 
 * **Backend:** Node.js, Express.js
 * **Database:** MySQL (Cloud-hosted via Aiven/Railway)
 * **AI Integration:** Google Gemini API
-* **Deployment:** Hosted on Render
+  
 
 ## ⚙️ Environment Variables
 
